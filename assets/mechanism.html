@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>expertcache — byte-budgeted online MoE residency planner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Variable-size expert caching with transactional leases: cost2q vs LRU under adversarial real traces, executing real PyTorch experts. All numbers are measured CPU receipts." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#020617; color:#e2e8f0; font-family:'JetBrains Mono',ui-monospace,Menlo,monospace; }
+  .wrap { max-width:1080px; margin:0 auto; padding:36px 20px 48px; }
+  h1 { font-size:18px; font-weight:600; letter-spacing:.02em; }
+  h1 .dot { display:inline-block; width:9px; height:9px; border-radius:50%; background:#c2410c; margin-right:10px; animation:pulse 2.2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+  p.sub { color:#94a3b8; font-size:12px; margin:6px 0 26px; }
+  .card { background:#0b1222; border:1px solid #1e293b; border-radius:12px; padding:18px; }
+  svg text { font-family:'JetBrains Mono',ui-monospace,monospace; }
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px; }
+  .mini { background:#0b1222; border:1px solid #1e293b; border-radius:12px; padding:14px 16px; font-size:12px; color:#94a3b8; line-height:1.75; }
+  .mini b { color:#e2e8f0; font-weight:600; }
+  .mini .k { display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:8px; vertical-align:baseline; }
+  footer { margin-top:22px; color:#475569; font-size:11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><span class="dot"></span>expertcache · residency is a byte budget, not a slot count</h1>
+  <p class="sub">Routes acquire a transactional lease over the union of their experts' parameter bytes before any copy or compute. The same <code>Residency.lease</code> code drives the animation, the tests and the receipts.</p>
+
+  <div class="card">
+    <svg viewBox="0 0 1020 430" width="100%" role="img" aria-label="Byte-budget residency after the same request under LRU and cost2q, plus the lease pipeline">
+      <defs>
+        <marker id="arw2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 0L10 5L0 10z" fill="#fb923c"/>
+        </marker>
+        <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="1020" height="430" fill="#0b1222" rx="10"/>
+      <rect width="1020" height="430" fill="url(#grid2)" rx="10"/>
+      <path d="M262 300 C 320 300 360 260 402 226" stroke="#fb923c" stroke-width="1.6" fill="none" marker-end="url(#arw2)"/>
+
+      <!-- request + two caches -->
+      <g>
+        <text x="40" y="52" fill="#94a3b8" font-size="11">request: expert 4 · payload 4 units · budget 10</text>
+        <text x="40" y="106" fill="#64748b" font-size="11">LRU after eviction</text>
+        <rect x="40" y="116" width="240" height="40" fill="none" stroke="#475569" stroke-width="1.5" rx="6"/>
+        <rect x="40" y="116" width="60" height="40" fill="#c2410c" opacity=".9" rx="4"/><text x="70" y="141" fill="#fff" font-size="11" text-anchor="middle">E0·2</text>
+        <rect x="100" y="116" width="90" height="40" fill="#0f766e" opacity=".9" rx="4"/><text x="145" y="141" fill="#fff" font-size="11" text-anchor="middle">E1·3</text>
+        <rect x="190" y="116" width="80" height="40" fill="#7c3aed" opacity=".9" rx="4"/><text x="230" y="141" fill="#fff" font-size="11" text-anchor="middle">E4·4</text>
+        <text x="288" y="141" fill="#64748b" font-size="10">9/10</text>
+        <text x="40" y="196" fill="#64748b" font-size="11">cost2q after eviction — two-hit E1 protected</text>
+        <rect x="40" y="206" width="240" height="40" fill="none" stroke="#475569" stroke-width="1.5" rx="6"/>
+        <rect x="40" y="206" width="90" height="40" fill="#0f766e" opacity=".9" rx="4"/><text x="85" y="231" fill="#fff" font-size="11" text-anchor="middle">E1·3 ★</text>
+        <rect x="130" y="206" width="60" height="40" fill="#2563eb" opacity=".9" rx="4"/><text x="160" y="231" fill="#fff" font-size="11" text-anchor="middle">E3·2</text>
+        <rect x="190" y="206" width="80" height="40" fill="#7c3aed" opacity=".9" rx="4"/><text x="230" y="231" fill="#fff" font-size="11" text-anchor="middle">E4·4</text>
+        <text x="288" y="231" fill="#64748b" font-size="10">10/10</text>
+        <text x="40" y="286" fill="#64748b" font-size="10">widths = payload bytes · ★ = two-hit probation→protected promotion</text>
+        <text x="40" y="306" fill="#475569" font-size="10">same request, different survivors — both decisions see only the past</text>
+      </g>
+
+      <!-- lease pipeline -->
+      <g transform="translate(402,60)" font-size="12">
+        <rect x="0" y="0" width="190" height="52" rx="8" fill="rgba(251,146,60,.3)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="95" y="22" fill="#e2e8f0" text-anchor="middle" font-weight="600">ADMIT union</text>
+        <text x="95" y="40" fill="#94a3b8" text-anchor="middle" font-size="10">pins ∪ route ≤ budget, else fail clean</text>
+        <rect x="0" y="66" width="190" height="52" rx="8" fill="rgba(6,78,59,.45)" stroke="#2dd4bf" stroke-width="1.5"/>
+        <text x="95" y="88" fill="#e2e8f0" text-anchor="middle" font-weight="600">PIN route</text>
+        <text x="95" y="84" fill="#94a3b8" text-anchor="middle" font-size="10">refcounted · nested leases counted</text>
+        <rect x="0" y="132" width="190" height="52" rx="8" fill="rgba(76,29,149,.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="95" y="154" fill="#e2e8f0" text-anchor="middle" font-weight="600">LOAD copies</text>
+        <text x="95" y="172" fill="#94a3b8" text-anchor="middle" font-size="10">deepcopy ≠ backing bank · bytes counted</text>
+        <rect x="0" y="198" width="190" height="52" rx="8" fill="rgba(8,51,68,.5)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="95" y="220" fill="#e2e8f0" text-anchor="middle" font-weight="600">EXECUTE experts</text>
+        <text x="95" y="238" fill="#94a3b8" text-anchor="middle" font-size="10">weighted sum · parity vs resident bank</text>
+        <text x="95" y="282" fill="#64748b" text-anchor="middle" font-size="10">release pins on exit — residency stays warm</text>
+      </g>
+
+      <!-- policy formula -->
+      <g transform="translate(672,66)">
+        <rect x="0" y="0" width="312" height="244" rx="8" fill="rgba(30,41,59,.55)" stroke="#334155" stroke-width="1.2"/>
+        <text x="16" y="30" fill="#94a3b8" font-size="11">cost2q eviction rank (min wins)</text>
+        <text x="16" y="66" fill="#e2e8f0" font-size="11">protected = hits≥2 ∧ age≤32</text>
+        <text x="16" y="94" fill="#e2e8f0" font-size="11">density = min(hits,8)·(4096+bytes)</text>
+        <text x="46" y="114" fill="#e2e8f0" font-size="11">/ (bytes·age)</text>
+        <text x="16" y="142" fill="#e2e8f0" font-size="11">rank = (protected, density, last)</text>
+        <text x="16" y="176" fill="#475569" font-size="10">LRU rank = (last,)</text>
+        <text x="16" y="204" fill="#64748b" font-size="10">no future oracle · no ghost queue ·</text>
+        <text x="16" y="222" fill="#64748b" font-size="10">4096 = chosen setup cost, not fitted</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="cards">
+    <div class="mini"><span class="k" style="background:#0f766e"></span><b>Bytes, not slots.</b> A 48-wide expert costs 3× a 16-wide one; variable payloads make eviction a per-byte value decision, checked against real parameter payloads.</div>
+    <div class="mini"><span class="k" style="background:#fb923c"></span><b>Transactional leases.</b> Over-budget routes fail before mutation; nested pins are refcounted; exceptions release pins and cannot leave phantom residency.</div>
+    <div class="mini"><span class="k" style="background:#a78bfa"></span><b>Honest ledger.</b> copied bytes = actual deepcopied payloads (asserted equal to planner accounting); transfer-latency figures are labeled modeled, never measured.</div>
+  </div>
+  <footer>expertcache · receipts measured on CPU (ARM Neoverse-N1, torch 2.14.0+cpu, single thread) · cost2q is a 2Q-inspired heuristic, not canonical 2Q</footer>
+</div>
+</body>
+</html>

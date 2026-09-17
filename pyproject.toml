@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling>=1.25,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "expertcache"
+version = "0.1.0"
+description = "Byte-budgeted online MoE residency with transactional expert leases"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["torch>=2.8,<3", "numpy>=1.26,<3", "matplotlib>=3.8,<4"]
+license = "MIT"
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.14,<0.15", "mypy>=1.20,<2", "build>=1.2,<2", "hatchling>=1.25,<2"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["expertcache"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["expertcache"]
+check_untyped_defs = true
+disallow_untyped_defs = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
