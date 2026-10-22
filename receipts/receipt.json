@@ -2169,19 +2169,19 @@
       "evictions": 221,
       "final_resident_bytes": 17216,
       "cpu_ms_samples": [
-        254.723848,
-        126.051115,
-        126.826921,
-        125.063708
+        251.593058,
+        125.423346,
+        125.179585,
+        125.092144
       ],
-      "median_cpu_ms": 126.439018,
+      "median_cpu_ms": 125.3014655,
       "resident_ms_samples": [
-        36.887456,
-        37.148778,
-        36.695935,
-        36.419773
+        35.758807,
+        36.156329,
+        36.277011,
+        35.949968
       ],
-      "median_resident_ms": 36.7916955,
+      "median_resident_ms": 36.0531485,
       "modeled_serial_link_ms": 1.2076333333333333,
       "exact_output_parity": true
     },
@@ -2197,19 +2197,19 @@
       "evictions": 189,
       "final_resident_bytes": 17216,
       "cpu_ms_samples": [
-        113.033704,
-        112.986424,
-        113.329867,
-        113.852591
+        116.543205,
+        110.963646,
+        111.864253,
+        111.988933
       ],
-      "median_cpu_ms": 113.18178549999999,
+      "median_cpu_ms": 111.926593,
       "resident_ms_samples": [
-        36.566454,
-        36.585894,
-        37.072497,
-        36.06869
+        37.497179,
+        34.290837,
+        35.567645,
+        35.379124
       ],
-      "median_resident_ms": 36.576174,
+      "median_resident_ms": 35.473384499999995,
       "modeled_serial_link_ms": 1.0411266666666665,
       "exact_output_parity": true
     },
@@ -2225,19 +2225,19 @@
       "evictions": 220,
       "final_resident_bytes": 23616,
       "cpu_ms_samples": [
-        124.175782,
-        124.806507,
-        124.174902,
-        125.026708
+        122.664808,
+        123.11249,
+        122.922009,
+        122.96525
       ],
-      "median_cpu_ms": 124.49114449999999,
+      "median_cpu_ms": 122.9436295,
       "resident_ms_samples": [
-        36.468494,
-        36.480573,
-        36.827776,
-        36.471893
+        35.929008,
+        34.521278,
+        34.169196,
+        34.74688
       ],
-      "median_resident_ms": 36.476233,
+      "median_resident_ms": 34.634079,
       "modeled_serial_link_ms": 1.2076333333333333,
       "exact_output_parity": true
     },
@@ -2253,19 +2253,19 @@
       "evictions": 187,
       "final_resident_bytes": 25792,
       "cpu_ms_samples": [
-        116.191647,
-        114.001711,
-        116.018925,
-        113.153226
+        111.639091,
+        112.560018,
+        113.069661,
+        112.078614
       ],
-      "median_cpu_ms": 115.010318,
+      "median_cpu_ms": 112.319316,
       "resident_ms_samples": [
-        36.526333,
-        36.516414,
-        36.761296,
-        36.755015
+        34.606319,
+        35.280163,
+        34.827641,
+        34.535478
       ],
-      "median_resident_ms": 36.640674000000004,
+      "median_resident_ms": 34.71698,
       "modeled_serial_link_ms": 1.0411266666666665,
       "exact_output_parity": true
     },
@@ -2281,19 +2281,19 @@
       "evictions": 257,
       "final_resident_bytes": 11808,
       "cpu_ms_samples": [
-        140.572656,
-        139.959131,
-        140.107933,
-        139.280487
+        140.638851,
+        136.786944,
+        137.258308,
+        137.989193
       ],
-      "median_cpu_ms": 140.033532,
+      "median_cpu_ms": 137.6237505,
       "resident_ms_samples": [
-        36.500453,
-        36.696455,
-        37.195978,
-        36.770416
+        36.258491,
+        35.391205,
+        34.943722,
+        35.468845
       ],
-      "median_resident_ms": 36.7334355,
+      "median_resident_ms": 35.430025,
       "modeled_serial_link_ms": 1.3874506666666668,
       "exact_output_parity": true
     },
@@ -2309,19 +2309,19 @@
       "evictions": 250,
       "final_resident_bytes": 17680,
       "cpu_ms_samples": [
-        138.18224,
-        138.878044,
-        138.34264,
-        139.188966
+        136.030579,
+        136.414262,
+        135.318135,
+        135.372415
       ],
-      "median_cpu_ms": 138.610342,
+      "median_cpu_ms": 135.701497,
       "resident_ms_samples": [
-        37.052617,
-        37.057698,
-        37.073458,
-        37.101898
+        35.101963,
+        35.008082,
+        35.515405,
+        35.864087
       ],
-      "median_resident_ms": 37.065578,
+      "median_resident_ms": 35.308684,
       "modeled_serial_link_ms": 1.3571546666666667,
       "exact_output_parity": true
     },
@@ -2337,19 +2337,19 @@
       "evictions": 180,
       "final_resident_bytes": 27376,
       "cpu_ms_samples": [
-        114.630436,
-        115.577282,
-        116.046366,
-        115.761283
+        111.983573,
+        113.053661,
+        113.358463,
+        111.46441
       ],
-      "median_cpu_ms": 115.66928250000001,
+      "median_cpu_ms": 112.518617,
       "resident_ms_samples": [
-        36.542174,
-        37.072418,
-        37.46258,
-        36.586974
+        34.865041,
+        35.200323,
+        36.465092,
+        36.128289
       ],
-      "median_resident_ms": 36.829696,
+      "median_resident_ms": 35.664305999999996,
       "modeled_serial_link_ms": 1.0001933333333335,
       "exact_output_parity": true
     },
@@ -2365,19 +2365,19 @@
       "evictions": 167,
       "final_resident_bytes": 26320,
       "cpu_ms_samples": [
-        146.510938,
-        111.884857,
-        111.867337,
-        111.274052
+        112.550218,
+        108.258628,
+        108.744311,
+        108.767671
       ],
-      "median_cpu_ms": 111.876097,
+      "median_cpu_ms": 108.755991,
       "resident_ms_samples": [
-        47.832972,
-        36.860216,
-        36.977736,
-        37.264579
+        35.743887,
+        35.701886,
+        34.73776,
+        34.71144
       ],
-      "median_resident_ms": 37.121157499999995,
+      "median_resident_ms": 35.219823000000005,
       "modeled_serial_link_ms": 0.9329680000000001,
       "exact_output_parity": true
     },
@@ -2393,19 +2393,19 @@
       "evictions": 59,
       "final_resident_bytes": 16032,
       "cpu_ms_samples": [
-        70.221208,
-        68.988919,
-        69.055399,
-        68.605716
+        78.844505,
+        66.489779,
+        66.960943,
+        67.313385
       ],
-      "median_cpu_ms": 69.02215899999999,
+      "median_cpu_ms": 67.137164,
       "resident_ms_samples": [
-        36.878736,
-        36.985057,
-        37.344459,
-        36.512734
+        35.033082,
+        34.057595,
+        35.487725,
+        34.83252
       ],
-      "median_resident_ms": 36.9318965,
+      "median_resident_ms": 34.932801,
       "modeled_serial_link_ms": 0.33241866666666664,
       "exact_output_parity": true
     },
@@ -2421,19 +2421,19 @@
       "evictions": 74,
       "final_resident_bytes": 15568,
       "cpu_ms_samples": [
-        75.241842,
-        93.332928,
-        75.879367,
-        76.27121
+        77.051452,
+        71.980777,
+        71.392573,
+        72.074738
       ],
-      "median_cpu_ms": 76.0752885,
+      "median_cpu_ms": 72.0277575,
       "resident_ms_samples": [
-        51.408637,
-        36.946937,
-        37.025657,
-        38.244425
+        34.261037,
+        35.013122,
+        35.338404,
+        34.397238
       ],
-      "median_resident_ms": 37.635041,
+      "median_resident_ms": 34.70518,
       "modeled_serial_link_ms": 0.4178720000000001,
       "exact_output_parity": true
     },
@@ -2449,19 +2449,19 @@
       "evictions": 12,
       "final_resident_bytes": 27312,
       "cpu_ms_samples": [
-        52.846206,
-        52.216963,
-        53.28901,
-        52.848607
+        49.658143,
+        48.737977,
+        49.21686,
+        49.377141
       ],
-      "median_cpu_ms": 52.847406500000005,
+      "median_cpu_ms": 49.297000499999996,
       "resident_ms_samples": [
-        37.178379,
-        37.632821,
-        37.095777,
-        37.548301
+        34.783521,
+        36.621933,
+        36.058089,
+        34.998162
       ],
-      "median_resident_ms": 37.36334,
+      "median_resident_ms": 35.5281255,
       "modeled_serial_link_ms": 0.096212,
       "exact_output_parity": true
     },
@@ -2477,19 +2477,19 @@
       "evictions": 25,
       "final_resident_bytes": 27312,
       "cpu_ms_samples": [
-        59.745975,
-        58.208045,
-        58.907849,
-        60.328179
+        54.052174,
+        55.690265,
+        56.140147,
+        55.297942
       ],
-      "median_cpu_ms": 59.326912,
+      "median_cpu_ms": 55.494103499999994,
       "resident_ms_samples": [
-        38.757309,
-        38.427706,
-        38.303306,
-        38.277306
+        35.202803,
+        36.552013,
+        35.321604,
+        37.842942
       ],
-      "median_resident_ms": 38.365505999999996,
+      "median_resident_ms": 35.9368085,
       "modeled_serial_link_ms": 0.1660333333333333,
       "exact_output_parity": true
     }
